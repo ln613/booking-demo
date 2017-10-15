@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.datepicker-inline, .table-condensed {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  background-color: white;
+}
