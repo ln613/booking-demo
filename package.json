@@ -2,8 +2,10 @@
   "name": "booking-demo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ln613.github.io/booking-demo",
   "dependencies": {
     "bootstrap-datepicker": "^1.7.1",
+    "gh-pages": "^1.0.0",
     "material-ui": "^0.19.4",
     "ramda": "^0.25.0",
     "react": "^16.0.0",
@@ -15,6 +17,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
