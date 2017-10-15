@@ -13,7 +13,7 @@ export default ({ add, toggle, open, change, err, clear }) =>
         <FlatButton label="Cancel" onClick={toggle} />
       ]}
       modal={true}
-      open={open}
+      open={open || false}
       autoScrollBodyContent={true}
     >
       <Input title="Event Name" change={change} />
@@ -30,7 +30,7 @@ export default ({ add, toggle, open, change, err, clear }) =>
         <FlatButton label="OK" onClick={clear} />,
       ]}
       modal={true}
-      open={err}
+      open={err || false}
     >
       {(err || []).map(x => <div>{x}</div>)}  
     </Dialog>

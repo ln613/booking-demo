@@ -126,6 +126,7 @@ class Booking extends React.Component {
     
     const groups = bookings.map((group, index) => {
       const groupProps = {
+        key: 'Group' + index,
         group,
         index,
         toggleBooking,

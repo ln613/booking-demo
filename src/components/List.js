@@ -14,7 +14,7 @@ export default ({ group, index, toggleBooking, headerColor }) =>
     {!group[1] ?
       <ListItem primaryText="You have no bookings for these dates." />
     : group[1].map((b, i) =>
-      <div>
+      <div key={`Item${b.id}`}>
         <Item booking={b} toggleBooking={toggleBooking} />
         {i < group[1].length - 1 ? <Divider /> : null}
       </div>
