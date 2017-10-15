@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 
 const SearchBar = ({ style, search, toggleSearch }) =>
   <Toolbar style={style}>
-    <ToolbarGroup>
+    <ToolbarGroup style={{ width: '100%' }}>
       <TextField hintText="Search" onChange={search} />
       <FlatButton onClick={toggleSearch} label="Cancel" />
     </ToolbarGroup>
