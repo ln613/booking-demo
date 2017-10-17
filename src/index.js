@@ -8,7 +8,10 @@ import App from './App';
 import './styles/index.css';
 import registerServiceWorker from './utils/registerServiceWorker';
 
-const store = createStore(reducers);
+const store = createStore(
+  reducers,
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+);
 
 ReactDOM.render(
   <MuiThemeProvider>
