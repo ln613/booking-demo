@@ -1,14 +1,16 @@
-import { groupBy, toPairs, sortBy, max, reduce, last } from 'ramda';
+import { max, reduce } from 'ramda';
 import Actions from '../actions/actionNames';
 import util from '../utils/util';
 
-export default (state = { }, action) => {
+export default (state = {
+  bookings: [],
+  searchKey: '',
+ }, action) => {
   switch (action.type) {
     case Actions.loadBookings:
       return {
         ...state,
-        bookings: groupBookings(action.bookings),
-        original: action.bookings,
+        bookings: action.bookings,
         selectedDate: new Date()
       };
 
@@ -22,16 +24,14 @@ export default (state = { }, action) => {
       return {
         ...state,
         searchMode: !state.searchMode,
-        key: null,
-        bookings: groupBookings(state.original),
+        searchKey: '',
         datePickerOpened: false
       };
 
     case Actions.search:
       return {
         ...state,
-        bookings: groupBookings(filterBookings(action.key, state.original), true),
-        key: action.key
+        searchKey: action.searchKey
       };
 
     case Actions.changeDate:
@@ -41,7 +41,7 @@ export default (state = { }, action) => {
       };
 
     case Actions.toggleBooking:
-      const bs = [...state.original];
+      const bs = [...state.bookings];
       const n = bs.findIndex(x => x.id === action.booking.id);
       
       if (n > -1)
@@ -49,8 +49,7 @@ export default (state = { }, action) => {
 
       return {
         ...state,
-        bookings: groupBookings(state.searchMode ? filterBookings(state.key, bs) : bs, state.searchMode),
-        original: bs
+        bookings: bs
       };
 
     case Actions.toggleAdd:
@@ -79,47 +78,6 @@ export default (state = { }, action) => {
   }
 }
 
-const groupBookings = (bs, gap) => {
-  const gs = sortBy(
-    x => x[0][0],
-    toPairs(groupBy(b => util.getDatePart(b.start), bs))
-      .map(x => [[new Date(x[0])], x[1]])
-  );
-
-  if (gap) return gs;
-
-  return reduce((p, c) => {
-    let d2 = c[0][0];
-    
-    if (!p) {
-      const yd = util.getDatePart(new Date());
-      yd.setDate(yd.getDate() - 1);
-      let dr = getDateRange(yd, d2);
-      return dr ? [[dr, null], c] : [c];
-    }
-
-    let d1 = last(p)[0][0];
-    const dr = getDateRange(d1, d2);
-    return dr ? [...p, [dr, null], c] : [...p, c];
-  }, null, gs);
-}
-
-const getDateRange = (d1, d2) => {
-  if (d1 >= d2) return null;
-  const diff = util.getDaysDiff(d1, d2);
-  if (diff > 1) {
-    d1 = new Date(d1);
-    d1.setDate(d1.getDate() + 1);
-    d2 = new Date(d2);
-    d2.setDate(d2.getDate() - 1);
-    return d1 === d2 ? [d1] : [d1, d2];
-  }
-  return null;
-}
-
-const filterBookings = (key, bs) => bs.filter(b =>
-  b.eventName.toLowerCase().indexOf(key.toLowerCase()) > -1 || b.roomName.toLowerCase().indexOf(key.toLowerCase()) > -1);
-
 const bookingFields = ['Event Name', 'Room Name', 'Start Date', 'Start Time', 'End Date', 'End Time'];
 
 const addBooking = s => {
@@ -130,7 +88,7 @@ const addBooking = s => {
     .filter(x => x);
   
   const b = {
-    id: reduce(max, 0, s.original.map(x => x.id)) + 1,
+    id: reduce(max, 0, s.bookings.map(x => x.id)) + 1,
     eventName: f.eventName,
     roomName: f.roomName,
     start: util.combineDateTime(f.startDate, f.startTime),
@@ -143,12 +101,11 @@ const addBooking = s => {
   if (err.length > 0)
     return { ...s, err };
 
-  const bs = [...s.original, b];
+  const bs = [...s.bookings, b];
 
   return {
     ...s,
-    bookings: groupBookings(bs),
-    original: bs,
+    bookings: bs,
     showAddDialog: false,
     form: {}
   };

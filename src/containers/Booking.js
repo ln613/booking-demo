@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import selectors from '../selectors/bookingSelectors';
 import actions from '../actions/bookingActionCreators';
 import AddDialog from '../components/AddDialog';
 import SearchBar from '../components/SearchBar';
@@ -96,7 +97,7 @@ class Booking extends React.Component {
 
   render() {
     const booking = this.props.booking;
-    const bookings = this.props.booking.bookings || [];
+    const bookings = this.props.bookings || [];
     
     const {
       toggleSearch,
@@ -179,4 +180,10 @@ class Booking extends React.Component {
   }; 
 }
 
-export default connect(s => ({ booking: s.booking }), actions)(Booking);
+export default connect(
+  s => ({
+    booking: selectors.booking(s),
+    bookings: selectors.groupedBookingsWithGaps(s),
+  }),
+  actions
+)(Booking);

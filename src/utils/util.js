@@ -1,4 +1,4 @@
-import { is } from 'ramda';
+import { is, reduce, last } from 'ramda';
 
 const days = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
 const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -46,6 +46,35 @@ const util = {
   },
   
   makeArray: a => is(Array, a) ? a : [a],
+
+  createGaps: reduce((p, c) => {
+    let d2 = c[0][0];
+    
+    if (!p) {
+      const yd = util.getDatePart(new Date());
+      yd.setDate(yd.getDate() - 1);
+      let dr = util.getDateRange(yd, d2);
+      return dr ? [[dr, null], c] : [c];
+    }
+  
+    let d1 = last(p)[0][0];
+    const dr = util.getDateRange(d1, d2);
+    return dr ? [...p, [dr, null], c] : [...p, c];
+  }, null),
+  
+  getDateRange: (d1, d2) => {
+    if (d1 >= d2) return null;
+    const diff = util.getDaysDiff(d1, d2);
+    if (diff > 1) {
+      d1 = new Date(d1);
+      d1.setDate(d1.getDate() + 1);
+      d2 = new Date(d2);
+      d2.setDate(d2.getDate() - 1);
+      return d1 === d2 ? [d1] : [d1, d2];
+    }
+    return null;
+  },
+  
 };
 
 export default util;

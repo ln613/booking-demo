@@ -12,7 +12,7 @@ export default {
 
   toggleSearch: () => ({ type: Actions.toggleSearch }),
 
-  search: key => ({ type: Actions.search, key }),
+  search: searchKey => ({ type: Actions.search, searchKey }),
 
   changeDate: date => ({ type: Actions.changeDate, date }),
 
