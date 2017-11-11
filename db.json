@@ -1,47 +1,18 @@
-{
-  "bookings": [
-      {
-          "id": 0,
-          "eventName": "Test Booking 01",
-          "roomName": "Demo Room 01",
-          "start": "2017-11-10T13:00:00.000Z",
-          "end": "2017-11-10T14:00:00.000Z"
-      },
-      {
-          "id": 1,
-          "eventName": "Test Booking 02",
-          "roomName": "Demo Room 02",
-          "start": "2017-11-10T13:04:00.000Z",
-          "end": "2017-11-10T19:22:00.000Z",
-          "selected": true
-      },
-      {
-          "id": 2,
-          "eventName": "Test Booking 03",
-          "roomName": "Demo Room 03",
-          "start": "2017-11-14T13:00:00.000Z",
-          "end": "2017-11-14T14:00:00.000Z"
-      },
-      {
-          "id": 3,
-          "eventName": "Test Booking 04",
-          "roomName": "Demo Room 04",
-          "start": "2017-11-15T15:00:00.000Z",
-          "end": "2017-11-15T16:00:00.000Z"
-      },
-      {
-          "id": 4,
-          "eventName": "Test Booking 05",
-          "roomName": "Demo Room 05",
-          "start": "2017-11-15T15:00:00.000Z",
-          "end": "2017-11-15T16:00:00.000Z"
-      },
-      {
-          "id": 5,
-          "eventName": "Thanksgiving",
-          "roomName": "Conference Room 1",
-          "start": "2017-11-24T00:00:00.000Z",
-          "end": "2017-11-24T23:59:59.999Z"
-      }
-  ]
-}
+[
+  {
+    "id": 3,
+    "name": "Phil Collins",
+    "albums": [
+      { "name": "Face Value", "year": 1981 },
+      { "name": "No Jacket Required", "year": 1985 }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Michael Jackson",
+    "albums": [
+      { "name": "Off the Wall", "year": 1979 },
+      { "name": "Bad", "year": 1988 }
+    ]
+  }
+]
