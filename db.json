@@ -2,12 +2,12 @@
   "todos": [
     {
       "id": 1,
-      "todo": "buy groceries",
+      "name": "buy groceries",
       "done": true
     },
     {
       "id": 2,
-      "todo": "meet friends"
+      "name": "meet friends"
     }
   ]
 }
